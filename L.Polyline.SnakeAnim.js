@@ -163,15 +163,8 @@ L.LayerGroup.include({
 		this._snakingLayersDone = 0;
         
 
-
-        if (this.options.snakingSort){
-            this._sorted_layers =[];
-            for (var i in this._layers){
-                this._sorted_layers.push(this._layers[i]);
-            }
-
-            this._sorted_layers = this._sorted_layers.sort(this.options.snakingSort);
-            this._snakingLayers = this._sorted_layers;
+        if (this.options.snakingLayers){
+            this._snakingLayers = this.options.snakingLayers;
         }
 
         else {
