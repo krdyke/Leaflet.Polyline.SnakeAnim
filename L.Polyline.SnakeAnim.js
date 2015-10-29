@@ -161,11 +161,26 @@ L.LayerGroup.include({
 		this._snaking = true;
 		this._snakingLayers = [];
 		this._snakingLayersDone = 0;
-		var keys = Object.keys(this._layers);
-		for (var i in keys) {
-			var key = keys[i];
-			this._snakingLayers.push(this._layers[key]);
-		}
+        
+
+
+        if (this.options.snakingSort){
+            this._sorted_layers =[];
+            for (var i in this._layers){
+                this._sorted_layers.push(this._layers[i]);
+            }
+
+            this._sorted_layers = this._sorted_layers.sort(this.options.snakingSort);
+            this._snakingLayers = this._sorted_layers;
+        }
+
+        else {
+            var keys = Object.keys(this._layers);
+            for (var i in keys) {
+                var key = keys[i];
+                this._snakingLayers.push(this._layers[key]);
+            }
+        }
 		this.clearLayers();
 
 		this.fire('snakestart');
