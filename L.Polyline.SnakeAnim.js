@@ -74,14 +74,15 @@ L.Polyline.include({
 	},
 
 	_snakeForward: function(forward) {
-
+        var currLatLng = this._snakeLatLngs[ this._snakingRings ][ this._snakingVertices ];
+        var nextLatLng = this._snakeLatLngs[ this._snakingRings ][ this._snakingVertices + 1 ];
 		// Calculate distance from current vertex to next vertex
-		var currPoint = this._map.latLngToContainerPoint(
-			this._snakeLatLngs[ this._snakingRings ][ this._snakingVertices ]);
-		var nextPoint = this._map.latLngToContainerPoint(
-			this._snakeLatLngs[ this._snakingRings ][ this._snakingVertices + 1 ]);
+		var currPoint = this._map.latLngToContainerPoint(currLatLng);
+		var nextPoint = this._map.latLngToContainerPoint(nextLatLng);
 
 		var distance = currPoint.distanceTo(nextPoint);
+
+        this._map.fitBounds(L.latLngBounds(currLatLng, nextLatLng));
 
 // 		console.log('Distance to next point:', distance, '; Now at: ', this._snakingDistance, '; Must travel forward:', forward);
 // 		console.log('Vertices: ', this._latlngs);
